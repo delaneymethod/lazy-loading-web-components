@@ -1,0 +1,54 @@
+/**
+ * padding-top: 100% - will give you an aspect ratio of 1:1;
+ * padding-top: calc(1 / 2 * 100%); - will give you an aspect ratio of 2:1
+ * padding-top: calc(1 / 3 * 100%); - will give you an aspect ratio of 3:1
+ * padding-top: calc(3 / 4 * 100%); - will give you an aspect ratio of 4:3
+ * padding-top: calc(5 / 4 * 100%); - will give you an aspect ratio of 4:5
+ * padding-top: calc(9 / 16 * 100%); - will give you an aspect ratio of 16:9
+ */
+
+@mixin aspect($width, $height) {
+	aspect-ratio: calc($width / $height);
+
+	@supports not (aspect-ratio: calc($width / $height)) {
+		&::before {
+			content: '';
+			float: left;
+			padding-top: calc($height / $width) * 100%;
+		}
+
+		&::after {
+			content: '';
+			clear: both;
+			display: block;
+		}
+	}
+}
+
+.aspect-ratio-auto {
+	aspect-ratio: auto;
+}
+
+.aspect-ratio-1-1 {
+	@include aspect(1, 1);
+}
+
+.aspect-ratio-2-1 {
+	@include aspect(2, 1);
+}
+
+.aspect-ratio-3-1 {
+	@include aspect(3, 1);
+}
+
+.aspect-ratio-4-3 {
+	@include aspect(4, 3);
+}
+
+.aspect-ratio-4-5 {
+	@include aspect(4, 5);
+}
+
+.aspect-ratio-16-9 {
+	@include aspect(16, 9);
+}

@@ -1,0 +1,11 @@
+{% extends '_layouts/default.twig' %}
+
+{% from '_macros/component.twig' import component %}
+
+{% block content %}
+	<code>/templates/_components/example</code>
+	{{ component('example', {
+		backgroundColor: 'grey',
+		text: 'This is a lazy loaded component example.'
+	}) }}
+{% endblock %}

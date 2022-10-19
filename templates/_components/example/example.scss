@@ -1,0 +1,21 @@
+.example {
+	&.white {
+		background-color: #FFFFFF;
+	}
+
+	&.gray,
+	&.grey {
+		background-color: #F2F2F2;
+	}
+
+	&.component-loaded {
+		color: #FFFFFF;
+		background-color: #EF4E4E;
+	}
+
+	.example-wrapper {
+		p {
+			padding: 30px;
+		}
+	}
+}

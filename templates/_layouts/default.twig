@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" class="no-js" lang="en-IE">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<title>Lazy loading Web Components example</title>
+		<meta name="description" content="Lazy loading Web Components example">
+		<meta name="author" content="Sean Delaney">
+		<link rel="shortcut icon" href="/favicon.ico">
+		<link rel="manifest" href="/manifest.webmanifest" crossorigin="use-credentials">
+
+		{% set uri = 'index' %}
+		{% set segment = craft.app.request.pathInfo %}
+		{% if segment|length %}
+			{% set uri = segment|replace('/', '-') %}
+		{% endif %}
+		{% set assetFilename = 'assets/css/' ~ uri ~ '.critical.css' %}
+		{% set assetsExists = craft.solspaceUtilities.assetExists(assetFilename) %}
+
+		{% if assetsExists %}
+			{{ craft.twigpack.includeInlineCssTags(assetFilename, { 'media': 'all' }) }}
+		{% endif %}
+
+		{{ craft.twigpack.includeCssModule('/assets/css/app.css', assetsExists) }}
+
+	</head>
+	<body>
+
+		{% block content %}
+		{% endblock %}
+
+		{% set vendorJs = craft.twigpack.getModuleUri('/assets/js/vendor.js') %}
+		{% set manifestJs = craft.twigpack.getModuleUri('/assets/js/manifest.js') %}
+		{% set appJs = craft.twigpack.getModuleUri('/assets/js/app.js') %}
+
+		<app></app>
+
+		<script src="{{ manifestJs }}" type="text/javascript" defer="defer" crossorigin="anonymous"></script>
+		<script src="{{ vendorJs }}" type="text/javascript" defer="defer" crossorigin="anonymous"></script>
+		<script src="{{ appJs }}" type="module" defer="defer" crossorigin="anonymous"></script>
+
+	</body>
+</html>
