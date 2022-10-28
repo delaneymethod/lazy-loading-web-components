@@ -10,7 +10,7 @@ module.exports = {
 	prefix: '/assets/css/',
 	suffix: '.critical.css',
 	css: [
-		'./public/assets/css/app.css',
+		'./web/assets/css/wc-app.css',
 	],
 	inline: false,
 	dimensions: [

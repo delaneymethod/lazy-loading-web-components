@@ -1,5 +1,5 @@
 module.exports = {
 	components: [
-		'example'
+		'wc-example'
 	]
 };

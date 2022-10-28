@@ -1,0 +1,22 @@
+.wc-example {
+	&.white {
+		background-color: #FFFFFF;
+	}
+
+	&.gray,
+	&.grey {
+		background-color: #F2F2F2;
+	}
+
+	&.web-component-loaded {
+		color: #FFFFFF;
+		background-color: #EF4E4E;
+	}
+
+	.wc-example-wrapper {
+		p {
+			color: red;
+			padding: 30px;
+		}
+	}
+}

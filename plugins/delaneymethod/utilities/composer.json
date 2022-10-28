@@ -1,0 +1,36 @@
+{
+    "name": "delaneymethod/utilities",
+    "description": "Custom helpers and Twig filters",
+    "type": "craft-plugin",
+    "version": "1.0.0",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "delaneymethod",
+        "utilities"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "DelaneyMethod",
+            "email": "hello@delaneymethod.com"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^4.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+          "delaneymethod\\utilities\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "DelaneyMethod Utilities",
+        "handle": "delaneymethod-utilities",
+        "developer": "DelaneyMethod",
+        "developerUrl": "https://delaneymethod.com",
+        "class": "delaneymethod\\utilities\\Utilities"
+    }
+}

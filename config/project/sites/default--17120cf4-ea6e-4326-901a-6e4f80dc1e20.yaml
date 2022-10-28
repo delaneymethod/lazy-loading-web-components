@@ -1,0 +1,9 @@
+baseUrl: $PRIMARY_SITE_URL
+enabled: true
+handle: default
+hasUrls: true
+language: en-IE
+name: 'Lazy Loading Web Component Example'
+primary: true
+siteGroup: 051dbd87-b572-4367-aeb9-601b7d635a91 # Lazy Loading Web Component Example
+sortOrder: 1

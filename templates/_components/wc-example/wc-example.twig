@@ -1,0 +1,11 @@
+{% set componentId = random() %}
+
+{% set settings = {
+	selector: '#wc-example-' ~ componentId
+} %}
+
+<wc-example data-settings='{{ settings|json_encode|raw }}' class="web-component wc-example {% if backgroundColor is defined and backgroundColor|length %}{{ backgroundColor }}{% endif %}">
+	<div id="wc-example-{{ componentId }}" class="wc-example-wrapper" style="display: none;">
+		<p>{{ text }}</p>
+	</div>
+</wc-example>

@@ -1,0 +1,38 @@
+dateModified: 1666341503
+email:
+  fromEmail: hello@delaneymethod.com
+  fromName: 'Lazy Loading Web Component Example'
+  transportType: craft\mail\transportadapters\Sendmail
+graphql:
+  publicToken:
+    enabled: false
+    expiryDate: null
+meta:
+  __names__:
+    051dbd87-b572-4367-aeb9-601b7d635a91: 'Lazy Loading Web Component Example' # Lazy Loading Web Component Example
+    17120cf4-ea6e-4326-901a-6e4f80dc1e20: 'Lazy Loading Web Component Example' # Lazy Loading Web Component Example
+    990993af-6ea7-43dc-8e84-0db7f8cd42f5: Common # Common
+    b5281a5a-d31b-4cd4-9eba-fc407e0194b5: 'Public Schema'
+    d457b7bc-f955-44a8-93cf-18b824902946: 'Public Schema' # Public Schema
+plugins:
+  delaneymethod-utilities:
+    edition: standard
+    enabled: true
+    schemaVersion: 1.0.0
+  twigpack:
+    edition: standard
+    enabled: true
+    schemaVersion: 1.0.0
+system:
+  edition: pro
+  live: true
+  name: 'Lazy Loading Web Component Example'
+  retryDuration: null
+  schemaVersion: 4.0.0.9
+  timeZone: Europe/Dublin
+users:
+  allowPublicRegistration: false
+  defaultGroup: null
+  photoSubpath: null
+  photoVolumeUid: null
+  requireEmailVerification: true

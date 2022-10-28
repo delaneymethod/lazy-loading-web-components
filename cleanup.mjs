@@ -1,15 +1,17 @@
 import { deleteAsync } from 'del';
 
 const paths = await deleteAsync([
-	'public/assets/js/**',
-	'public/assets/css/**',
-	'public/assets/fonts/**',
-	'public/assets/img/**',
-	'!public/assets',
-	'!public/assets/js',
-	'!public/assets/css',
-	'!public/assets/fonts',
-	'!public/assets/img'
+	'web/assets/js/**',
+	'web/assets/css/**',
+	'web/assets/icons/**',
+	'web/assets/fonts/**',
+	'web/assets/img/**',
+	'!web/assets',
+	'!web/assets/js',
+	'!web/assets/css',
+	'!web/assets/icons',
+	'!web/assets/fonts',
+	'!web/assets/img'
 ]);
 
 console.info('Deleted files:');
