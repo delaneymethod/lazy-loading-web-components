@@ -1,3 +1,4 @@
+const fs = require('fs');
 const mix = require('laravel-mix');
 const cssnano = require('cssnano');
 const tailwindcss = require('tailwindcss');
@@ -12,6 +13,18 @@ const sassPlugins = [
 	tailwindcss('tailwindcss.config.js'),
 	autoprefixer(),
 ];
+
+const uid = () => {
+	let text = '';
+
+	const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+	for (let i = 0; i < 16; i++) {
+		text += possible.charAt(Math.floor(Math.random() * possible.length));
+	}
+
+	return text;
+};
 
 if (mix.inProduction()) {
 	sassPlugins.push(cssnano());
@@ -59,3 +72,5 @@ mix.extract();
 if (mix.inProduction()) {
 	mix.version();
 }
+
+mix.after(() => fs.writeFileSync('templates/buildVersion.twig', uid()));

@@ -29,11 +29,13 @@
 		{% block content %}
 		{% endblock %}
 
+		{% set environment = getenv('ENVIRONMENT') %}
+
 		{% set vendorJs = craft.twigpack.getModuleUri('/assets/js/vendor.js') %}
 		{% set manifestJs = craft.twigpack.getModuleUri('/assets/js/manifest.js') %}
 		{% set wcAppJs = craft.twigpack.getModuleUri('/assets/js/wc-app.js') %}
 
-		<wc-app></wc-app>
+		<wc-app data-environment="{{ environment }}" data-build-version="{% include 'buildVersion.twig' %}"></wc-app>
 
 		<script src="{{ manifestJs }}" type="text/javascript" defer="defer" crossorigin="anonymous"></script>
 		<script src="{{ vendorJs }}" type="text/javascript" defer="defer" crossorigin="anonymous"></script>

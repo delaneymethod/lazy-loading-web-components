@@ -109,9 +109,12 @@ class WcApp extends HTMLElement {
 
 	initNonCriticalScripts() {
 		this.initEventListeners();
-		this.initPinterest();
-		this.initFacebook();
-		this.initGoogleTagManager();
+
+		if (this.dataset.environment === 'production') {
+			this.initPinterest();
+			this.initFacebook();
+			this.initGoogleTagManager();
+		}
 	};
 
 	async initServiceWorker() {
@@ -121,7 +124,10 @@ class WcApp extends HTMLElement {
 
 	async initMixManifest() {
 		if (! this._mixManifest) {
-			this._mixManifest = await fetch(`/mix-manifest.json?id=${this._currentTimestamp}`, { method: 'GET', cache: 'no-store' }).then(response => response.json());
+			this._mixManifest = await fetch(`/mix-manifest.json?v=${this.dataset.buildVersion}`, {
+				method: 'GET',
+				cache: 'no-store'
+			}).then(response => response.json());
 		}
 	};
 
@@ -161,9 +167,8 @@ class WcApp extends HTMLElement {
 				}
 			});
 		}, {
-			root: null,
-			rootMargin: '0px',
-			threshold: [0.0, 1.0]
+			threshold: 0,
+			rootMargin: '0px 0px 60px 0px'
 		});
 
 		const components = document.querySelectorAll('.web-component');
@@ -208,7 +213,7 @@ class WcApp extends HTMLElement {
 
 		WcLoadScript({
 			id: `${id}-script-loader`,
-			src: `/assets/js/${id}.js`,
+			src: `/assets/js/${id}.js?v=${this.dataset.buildVersion}`,
 			attrs: [{
 				key: 'type',
 				value: 'text/javascript'
