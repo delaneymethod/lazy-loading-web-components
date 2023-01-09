@@ -1,41 +1,26 @@
 import 'intersection-observer';
-import $ from 'jquery';
-import lazySizes from 'lazysizes';
+import debounce from 'lodash.debounce';
 
-lazySizes.cfg.loadMode = 2;
-lazySizes.cfg.expand = '700';
-lazySizes.cfg.expFactor = 1.7;
-
-global.jQuery = global.$ = $.noConflict();
+import loadScript from './load-script.js';
+import loadStylesheet from './load-stylesheet.js';
 
 /* Keeps track of 3rd party script requests. Forces components to wait until a previous request for a 3rd party script has finished loading before doing anything. */
 global.scriptsLoader = [];
 
-import './wc-base.js';
-import './wc-defer.js';
-import './wc-debounce.js';
-import './wc-throttle.js';
-import './wc-path-info.js';
-import './wc-load-script.js';
-import './wc-load-stylesheet.js';
-
-class WcApp extends HTMLElement {
-	_idleTimeout = {
-		timeout: 2000
-	};
-
+class App extends HTMLElement {
 	_mixManifest = null;
 
 	_facebookId = 'FIXME';
 
 	_googleTagManagerId = 'FIXME';
 
-	_currentTimestamp = Date.now();
-
 	constructor() {
 		super();
 
-		this.initPolyfills();
+		/* Loads components as the user scrolls them into viewport */
+		if (String(this.dataset.load).toLowerCase() === 'on-demand') {
+			this.initComponentsOnDemand();
+		}
 
 		/**
 		 * Loads all non critical scripts, once per page load, as soon as the user interacts with the page.
@@ -44,8 +29,7 @@ class WcApp extends HTMLElement {
 		this.initOneTimeEventListener(document, 'initNonCriticalScripts', () => this.initNonCriticalScripts());
 
 		const initNonCriticalScriptsEvent = new CustomEvent('initNonCriticalScripts');
-
-		const debouncedInteraction = WcDebounce(() => document.dispatchEvent(initNonCriticalScriptsEvent), 100);
+		const debouncedInteraction = debounce(() => document.dispatchEvent(initNonCriticalScriptsEvent), 10);
 
 		document.addEventListener('click', debouncedInteraction);
 		document.addEventListener('scroll', debouncedInteraction);
@@ -56,29 +40,6 @@ class WcApp extends HTMLElement {
 		document.addEventListener('touchstart', debouncedInteraction);
 	};
 
-	initPolyfills() {
-		/**
-		 * A stupid polyfill for Safari (Is it the new IE?)
-		 * See: https://developer.chrome.com/blog/using-requestidlecallback
-		 */
-		window.requestIdleCallback = window.requestIdleCallback || function(cb) {
-			const start = Date.now();
-
-			return setTimeout(function() {
-				cb({
-					didTimeout: false,
-					timeRemaining: function() {
-						return Math.max(0, 50 - (Date.now() - start));
-					},
-				});
-			}, 1);
-		};
-
-		window.cancelIdleCallback = window.cancelIdleCallback || function(id) {
-			clearTimeout(id);
-		};
-	};
-
 	initOneTimeEventListener(node, type, callback) {
 		node.addEventListener(type, function listener(event) {
 			event.target.removeEventListener(event.type, listener, { once: true });
@@ -87,69 +48,26 @@ class WcApp extends HTMLElement {
 		}, { once: true });
 	};
 
-	disconnectedCallback() {};
+	disconnectedCallback() {
+	}
 
 	connectedCallback() {
-		window.addEventListener('load', async () => requestIdleCallback(async () => {
-			await this.initMixManifest();
-
-			/* Loads all components at once */
-			/* await this.initComponents(); */
-
-			/* Loads components as the user scrolls them into viewport */
-			await this.initComponentsOnDemand();
-
-			await this.initServiceWorker();
-		}, this._idleTimeout));
-	};
-
-	getMixManifestVersion(key) {
-		return (this._mixManifest && this._mixManifest[key]) ? this._mixManifest[key] : key;
-	};
+	}
 
 	initNonCriticalScripts() {
 		this.initEventListeners();
 
-		if (this.dataset.environment === 'production') {
+		if (String(this.dataset.environment).toLowerCase() === 'production') {
 			this.initPinterest();
 			this.initFacebook();
 			this.initGoogleTagManager();
 		}
 	};
 
-	async initServiceWorker() {
-		// Do your thing... Cache assets for offline use, run background processes and lots more
-		return Promise.resolve();
-	};
-
-	async initMixManifest() {
-		if (! this._mixManifest) {
-			this._mixManifest = await fetch(`/mix-manifest.json?v=${this.dataset.buildVersion}`, {
-				method: 'GET',
-				cache: 'no-store'
-			}).then(response => response.json());
-		}
-	};
-
-	/**
-	 * Loads components instantly and once per page load.
-	 */
-	async initComponents() {
-		const components = document.querySelectorAll('.web-component');
-
-		for (const component of components) {
-			const nodeName = component.nodeName.toLowerCase();
-
-			await this.initComponent(nodeName).then(() => {});
-		}
-
-		return Promise.resolve();
-	};
-
 	/**
 	 * Observes and loads components into view as the user scrolls towards them. Components are only loaded once per page load.
 	 */
-	async initComponentsOnDemand() {
+	initComponentsOnDemand() {
 		const componentsLoaded = {};
 
 		const observer = new IntersectionObserver((entries, observerRef) => {
@@ -157,53 +75,44 @@ class WcApp extends HTMLElement {
 				if (entry.isIntersecting) {
 					const nodeName = entry.target.nodeName.toLowerCase();
 
-					observerRef.unobserve(entry.target);
-
 					if (! componentsLoaded[nodeName]) {
-						await this.initComponent(nodeName);
+						this.initComponent(nodeName);
 
 						componentsLoaded[nodeName] = true;
+
+						observerRef.unobserve(entry.target);
 					}
 				}
 			});
 		}, {
 			threshold: 0,
-			rootMargin: '0px 0px 60px 0px'
+			rootMargin: '0px 0px 200px 0px'
 		});
 
 		const components = document.querySelectorAll('.web-component');
 		components.forEach(component => observer.observe(component));
 	};
 
-	async initComponent(nodeName) {
-		const stylesheet = WcLoadStylesheet({
+	initComponent(nodeName) {
+		const stylesheet = loadStylesheet({
 			id: `${nodeName}-stylesheet-loader`,
-			href: this.getMixManifestVersion(`/assets/css/${nodeName}.css`),
+			href: `/assets/css/${nodeName}.css?v=${this.dataset.buildVersion}`,
 			attrs: [{
 				key: 'id',
 				value: `${nodeName}-stylesheet-loader`
 			}]
 		});
 
-		const script = WcLoadScript({
+		const script = loadScript({
 			id: `${nodeName}-script-loader`,
-			src: this.getMixManifestVersion(`/assets/js/${nodeName}.js`),
+			src: `/assets/css/${nodeName}.js?v=${this.dataset.buildVersion}`,
 			attrs: [{
-				key: 'type',
-				value: 'text/javascript'
-			}, {
 				key: 'id',
 				value: `${nodeName}-script-loader`,
-			}, {
-				key: 'defer',
-				value: 'true'
-			}, {
-				key: 'data-add-to',
-				value: 'body'
 			}]
 		});
 
-		await Promise
+		Promise
 			.all([script, stylesheet])
 			.catch(console.error);
 	};
@@ -211,29 +120,20 @@ class WcApp extends HTMLElement {
 	initEventListeners() {
 		const id = 'event-listeners';
 
-		WcLoadScript({
+		loadScript({
 			id: `${id}-script-loader`,
 			src: `/assets/js/${id}.js?v=${this.dataset.buildVersion}`,
 			attrs: [{
-				key: 'type',
-				value: 'text/javascript'
-			}, {
 				key: 'id',
 				value: `${id}-script-loader`
-			}, {
-				key: 'defer',
-				value: 'true'
-			}, {
-				key: 'data-add-to',
-				value: 'body'
 			}]
-		}).then();
+		}).then(() => {});
 	}
 
 	initPinterest() {
 		const id = 'pinit';
 
-		WcLoadScript({
+		loadScript({
 			id:	`${id}-script-loader`,
 			src: `//assets.pinterest.com/js/${id}.js`,
 			attrs: [{
@@ -252,7 +152,7 @@ class WcApp extends HTMLElement {
 				key: 'data-add-to',
 				value: 'body'
 			}]
-		}).then();
+		}).then(() => {});
 	};
 
 	initFacebook() {
@@ -292,4 +192,4 @@ class WcApp extends HTMLElement {
 	};
 }
 
-customElements.define('wc-app', WcApp);
+customElements.define('my-app', App);

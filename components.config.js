@@ -1,5 +1,7 @@
 module.exports = {
 	components: [
-		'wc-example'
+		'my-example',
+		//'my-slider',
+		//'my-lightbox',
 	]
 };

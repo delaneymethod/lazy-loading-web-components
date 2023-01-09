@@ -1,4 +1,4 @@
-.wc-example {
+.my-example {
 	&.white {
 		background-color: #FFFFFF;
 	}
@@ -8,12 +8,9 @@
 		background-color: #F2F2F2;
 	}
 
-	&.web-component-loaded {
-		color: #FFFFFF;
-		background-color: #EF4E4E;
-	}
+	.my-example-wrapper {
+		min-width: 100%;
 
-	.wc-example-wrapper {
 		p {
 			color: red;
 			padding: 30px;

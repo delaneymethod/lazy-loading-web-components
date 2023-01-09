@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import 'aspect-ratio';
+@import 'plyr';
+@import 'glightbox';
+@import 'common';
+.my-example {
+	&.white {
+		background-color: #FFFFFF;
+	}
+
+	&.gray,
+	&.grey {
+		background-color: #F2F2F2;
+	}
+
+	.my-example-wrapper {
+		min-width: 100%;
+
+		p {
+			color: red;
+			padding: 30px;
+		}
+	}
+}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import 'aspect-ratio';
+@import 'plyr';
+@import 'glightbox';
+@import 'common';
+.my-example {
+	&.white {
+		background-color: #FFFFFF;
+	}
+
+	&.gray,
+	&.grey {
+		background-color: #F2F2F2;
+	}
+
+	.my-example-wrapper {
+		min-width: 100%;
+
+		p {
+			color: red;
+			padding: 30px;
+		}
+	}
+}

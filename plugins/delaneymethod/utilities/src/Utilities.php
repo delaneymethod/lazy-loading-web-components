@@ -13,10 +13,10 @@ namespace delaneymethod\utilities;
 use Craft;
 use craft\web\twig\variables\CraftVariable;
 use delaneymethod\utilities\variables\UtilitiesVariable;
+use Jawira\CaseConverterTwig\CaseConverterExtension;
+use Twig\Extra\String\StringExtension;
 use yii\base\Event;
 use craft\base\Plugin;
-use craft\services\Plugins;
-use craft\events\PluginEvent;
 use delaneymethod\utilities\twigextensions\UtilitiesTwigExtension;
 
 /**
@@ -58,6 +58,8 @@ class Utilities extends Plugin
 		self::$plugin = $this;
 
 		Craft::$app->view->registerTwigExtension(new UtilitiesTwigExtension());
+		Craft::$app->view->registerTwigExtension(new CaseConverterExtension());
+		Craft::$app->view->registerTwigExtension(new StringExtension());
 
     Event::on(
       CraftVariable::class,
@@ -68,15 +70,6 @@ class Utilities extends Plugin
         $variable->set('delaneyMethodUtilities', UtilitiesVariable::class);
       }
     );
-
-		Event::on(
-			Plugins::class,
-			Plugins::EVENT_AFTER_INSTALL_PLUGIN,
-			function (PluginEvent $event) {
-				if ($event->plugin === $this) {
-				}
-			}
-		);
 
 		Craft::info(
 			Craft::t(

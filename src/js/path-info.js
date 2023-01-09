@@ -1,4 +1,4 @@
-const WcPathInfo = filepath => {
+const pathInfo = filepath => {
 	const info = filepath.match(/(.*?[\\/:])?(([^\\/:]*?)(\.[^\\/.]+?)?)(?:[?#].*)?$/);
 
 	return {
@@ -9,4 +9,4 @@ const WcPathInfo = filepath => {
 	};
 };
 
-global.WcPathInfo = WcPathInfo;
+export default pathInfo;

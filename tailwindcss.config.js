@@ -1,7 +1,7 @@
 module.exports = {
 	content: [
 		'./storage/runtime/compiled_templates/**/*.php',
-		'./templates/**/*.{twig,css,scss}',
+		//'./templates/**/*.{twig,css,scss}',
 	],
 	theme: {
 		screens: {

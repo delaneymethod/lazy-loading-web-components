@@ -1,0 +1,22 @@
+{% set componentId = random() %}
+
+{% set settings = {
+	selector: '#my-example-' ~ componentId,
+	lightbox: {
+		options: {
+			skin: 'gallery',
+			selector: '.lightbox-' ~ componentId,
+		}
+	},
+} %}
+
+<my-example data-settings='{{ settings|json_encode|raw }}' class="web-component my-example {% if backgroundColor is defined and backgroundColor|length %}{{ backgroundColor }}{% endif %}">
+	<div id="my-example-{{ componentId }}" class="my-example-wrapper">
+		<p>{{ text }}</p>
+
+		<a href="https://vimeo.com/115041822" class="lightbox-{{ componentId }}">
+			<img src="https://picsum.photos/1200/800" alt="image" />
+		</a>
+
+	</div>
+</my-example>

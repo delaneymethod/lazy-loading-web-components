@@ -1,0 +1,115 @@
+
+.glightbox-gallery {
+	.gslide-video {
+		background-color: #000000;
+	}
+
+	.gslide-media {
+		border: 3px solid #FFFFFF;
+		position: relative !important;
+	}
+
+	.gprev,
+	.gnext,
+	.gclose,
+	.gdownload {
+		border-radius: 0;
+		background-color: transparent;
+
+		path {
+			fill: #FFFFFF;
+		}
+	}
+
+	.gprev {
+		top: -100%;
+		left: 30px;
+		width: 40px;
+		height: 50px;
+		position: absolute;
+	}
+
+	.gnext {
+		top: -100%;
+		right: 30px;
+		width: 40px;
+		height: 50px;
+		position: absolute;
+	}
+
+	.gclose {
+		top: 15px;
+		right: 10px;
+		width: 35px;
+		height: 35px;
+		position: absolute;
+
+		svg {
+			width: 18px;
+			height: auto;
+		}
+
+		&:hover {
+			opacity: 1;
+		}
+	}
+
+	.gdownload {
+		top: 15px;
+		width: 35px;
+		height: 35px;
+		position: absolute;
+		right: 60px !important;
+
+		svg {
+			width: 18px;
+			height: auto;
+		}
+
+		&:hover {
+			opacity: 1;
+		}
+	}
+
+	.goverlay {
+		background-color: rgba(34, 37, 34, 0.7);
+	}
+
+	@media (min-width: 769px) {
+		.gslide-media {
+			box-shadow: 1px 2px 9px 0 rgba(0, 0, 0, 0.65);
+			-webkit-box-shadow: 1px 2px 9px 0 rgba(0, 0, 0, 0.65);
+		}
+
+		.description-left .gdesc-inner,
+		.description-right .gdesc-inner {
+			height: 100%;
+			overflow-y: auto;
+			position: absolute;
+		}
+
+		.gprev,
+		.gnext,
+		.gclose {
+			background-color: transparent;
+
+			&:hover {
+				background-color: transparent;
+			}
+		}
+
+		.gprev {
+			top: 45%;
+		}
+
+		.gnext {
+			top: 45%;
+		}
+	}
+
+	@media (min-width: 992px) {
+		.gclose {
+			right: 20px;
+		}
+	}
+}

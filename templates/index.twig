@@ -3,9 +3,18 @@
 {% from '_macros/component.twig' import component %}
 
 {% block content %}
-	<code>/templates/_components/wc-example</code>
-	{{ component('wc-example', {
+
+	<code>/templates/_components/my-example</code>
+	{{ component('my-example', {
 		backgroundColor: 'grey',
 		text: 'This is an example.'
 	}) }}
+
+	{#
+	<code>/templates/_components/my-slider</code>
+	{{ component('my-slider') }}
+
+	<code>/templates/_components/my-lightbox</code>
+	{{ component('my-lightbox') }}
+	#}
 {% endblock %}

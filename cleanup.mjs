@@ -11,7 +11,8 @@ const paths = await deleteAsync([
 	'!web/assets/css',
 	'!web/assets/icons',
 	'!web/assets/fonts',
-	'!web/assets/img'
+	'!web/assets/img',
+	'src/scss/app-combined.scss',
 ]);
 
 console.info('Deleted files:');

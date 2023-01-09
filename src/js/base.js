@@ -1,13 +1,15 @@
-class WcBase extends HTMLElement {
-	_settings = {};
+import pathInfo from './path-info.js';
+import loadScript from './load-script.js';
+import loadStylesheet from './load-stylesheet.js';
 
-	_idleTimeout = {
-		timeout: 2000
-	};
+class Base extends HTMLElement {
+	settings = {};
 
-	_clickEventTimeout = null;
+	selector = false;
 
-	_glightbox = {
+	clickEventTimeout = null;
+
+	glightbox = Object.freeze({
 		default: {
 			loop: true,
 			zoomable: false,
@@ -25,7 +27,7 @@ class WcBase extends HTMLElement {
 				js: 'https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.2/plyr.polyfilled.min.js'
 			}
 		}
-	};
+	});
 
 	constructor() {
 		super();
@@ -33,79 +35,50 @@ class WcBase extends HTMLElement {
 		/* Merges default settings with specific component settings */
 		if (this.hasAttribute('data-settings') && this.getAttribute('data-settings') !== null) {
 			Object.assign(
-				this._settings,
-				this._settings,
+				this.settings,
+				this.settings,
 				JSON.parse(this.getAttribute('data-settings'))
 			);
-		}
 
-		if (this._settings.hasOwnProperty('selector')) {
-			this._selector = this._settings.selector;
+			if (Object.prototype.hasOwnProperty.call(this.settings, 'selector')) {
+				this.selector = this.settings.selector;
+			}
 		}
 	}
 
+	disconnectedCallback() {
+	}
+
 	connectedCallback() {
-		this.initComponent();
-	};
-
-	disconnectedCallback() {};
-
-	loadedComponent() {
-		this.classList.add('web-component-loaded');
-	};
-
-	loadingComponent() {
-		this.classList.remove('web-component-loaded');
-	};
+	}
 
 	/**
-	 * http://kenwheeler.github.io/slick/
+	 * https://github.com/NickPiscitelli/Glider.js
 	 *
 	 * @return Promise
 	 */
-	async initSlickCarousel() {
-		const id = 'slick';
+	initGlider() {
+		const id = 'glider';
 
-		const stylesheet = WcLoadStylesheet({
+		const stylesheet = loadStylesheet({
 			id: `${id}-stylesheet-loader`,
-			href: `https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/${id}.min.css`,
+			href: `https://cdnjs.cloudflare.com/ajax/libs/glider-js/1.7.8/${id}.min.css`,
 			attrs: [{
 				key: 'id',
 				value: `${id}-stylesheet-loader`
-			}, {
-				key: 'crossOrigin',
-				value: 'anonymous'
-			}, {
-				key: 'integrity',
-				value: 'sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw=='
 			}]
 		});
 
-		const script = WcLoadScript({
+		const script = loadScript({
 			id: `${id}-script-loader`,
-			src: `https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/${id}.min.js`,
+			src: `https://cdnjs.cloudflare.com/ajax/libs/glider-js/1.7.8/${id}.min.js`,
 			attrs: [{
-				key: 'type',
-				value: 'text/javascript'
-			}, {
 				key: 'id',
 				value: `${id}-script-loader`,
-			}, {
-				key: 'defer',
-				value: 'true'
-			}, {
-				key: 'crossOrigin',
-				value: 'anonymous'
-			}, {
-				key: 'integrity',
-				value: 'sha512-HGOnQO9+SP1V92SrtZfjqxxtLmVzqZpjFFekvzZVWoiASSQgSr4cw9Kqd2+l8Llp4Gm0G8GIFJ4ddwZilcdb8A=='
-			}, {
-				key: 'data-add-to',
-				value: 'body'
 			}]
 		});
 
-		await Promise
+		return Promise
 			.all([stylesheet, script])
 			.catch(console.error);
 	};
@@ -115,59 +88,36 @@ class WcBase extends HTMLElement {
 	 *
 	 * @return Promise
 	 */
-	async initGLightBox() {
+	initGLightBox() {
 		const id = 'glightbox';
 
-		const stylesheet = WcLoadStylesheet({
+		const stylesheet = loadStylesheet({
 			id: `${id}-stylesheet-loader`,
 			href: `https://cdnjs.cloudflare.com/ajax/libs/glightbox/3.2.0/css/${id}.min.css`,
 			attrs: [{
 				key: 'id',
 				value: `${id}-stylesheet-loader`
-			}, {
-				key: 'crossOrigin',
-				value: 'anonymous'
-			}, {
-				key: 'integrity',
-				value: 'sha512-T+KoG3fbDoSnlgEXFQqwcTC9AdkFIxhBlmoaFqYaIjq2ShhNwNao9AKaLUPMfwiBPL0ScxAtc+UYbHAgvd+sjQ=='
 			}]
 		});
 
-		const script = WcLoadScript({
+		const script = loadScript({
 			id: `${id}-script-loader`,
 			src: `https://cdnjs.cloudflare.com/ajax/libs/glightbox/3.2.0/js/${id}.min.js`,
 			attrs: [{
-				key: 'type',
-				value: 'text/javascript'
-			}, {
 				key: 'id',
 				value: `${id}-script-loader`,
-			}, {
-				key: 'defer',
-				value: 'true'
-			}, {
-				key: 'crossOrigin',
-				value: 'anonymous'
-			}, {
-				key: 'integrity',
-				value: 'sha512-S/H9RQ6govCzeA7F9D0m8NGfsGf0/HjJEiLEfWGaMCjFzavo+DkRbYtZLSO+X6cZsIKQ6JvV/7Y9YMaYnSGnAA=='
-			}, {
-				key: 'data-add-to',
-				value: 'body'
 			}]
 		});
 
-		await Promise
+		return Promise
 			.all([stylesheet, script])
 			.catch(console.error);
 	};
 
 	/**
 	 * Adds a custom download button to the toolbar menu within GLightbox
-	 *
-	 * @return Promise
 	 */
-	async gDownloadButton() {
+	gDownloadButton() {
 		/* Creates a new custom button for GLightbox. See individual components for the onClick handler. */
 		const button = document.createElement('button');
 		button.innerHTML = '<svg width="15" height="19" viewBox="0 0 15 19" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_1_206)"><path d="M7.24994 13.9598C7.36037 14.0687 7.50644 14.125 7.6525 14.125C7.79856 14.125 7.9442 14.0701 8.05542 13.9602L13.1854 8.89769C13.4081 8.67796 13.4081 8.32183 13.1854 8.10245C12.9628 7.88308 12.6019 7.88273 12.3796 8.10245L8.2225 12.2055V1.75C8.2225 1.43922 7.966 1.1875 7.6525 1.1875C7.339 1.1875 7.0825 1.43922 7.0825 1.75V12.2055L2.92542 8.10273C2.70276 7.88301 2.34188 7.88301 2.11958 8.10273C1.89728 8.32246 1.89692 8.67859 2.11958 8.89797L7.24994 13.9598ZM13.9225 15.8125H1.3825C1.06743 15.8125 0.8125 16.0656 0.8125 16.375C0.8125 16.6844 1.06743 16.9375 1.3825 16.9375H13.9225C14.2376 16.9375 14.4925 16.6859 14.4925 16.375C14.4925 16.0641 14.236 15.8125 13.9225 15.8125Z" fill="#FFFFFF"/></g><defs><clipPath id="clip0_1_206"><rect width="13.68" height="18" fill="white" transform="translate(0.8125 0.0625)"/></clipPath></defs></svg>';
@@ -183,8 +133,9 @@ class WcBase extends HTMLElement {
 	fetchAndDownloadFile(fileUrl) {
 		const options = {
 			method: 'GET',
-			mode: 'no-cors',
-			cache: 'no-store',
+			mode: 'cors',
+			cache: 'no-cache',
+			credentials: 'include',
 		};
 
 		fetch(fileUrl, options)
@@ -197,11 +148,11 @@ class WcBase extends HTMLElement {
 		const $this = this;
 
 		const clickHandler = function() {
-			if ($this._clickEventTimeout) {
-				clearTimeout($this._clickEventTimeout);
+			if ($this.clickEventTimeout) {
+				clearTimeout($this.clickEventTimeout);
 			}
 
-			$this._clickEventTimeout = setTimeout(() => {
+			$this.clickEventTimeout = setTimeout(() => {
 				URL.revokeObjectURL(url);
 
 				this.removeEventListener('click', clickHandler);
@@ -210,13 +161,13 @@ class WcBase extends HTMLElement {
 			}, 150);
 		};
 
-		const info = WcPathInfo(url);
+		const info = pathInfo(url);
 
-		url = URL.createObjectURL(blob);
+		const href = URL.createObjectURL(blob);
 
 		const a = document.createElement('a');
-		a.href = url;
-		a.download = info.name || 'download';
+		a.href = href;
+		a.download = info.name + info.ext  || 'download';
 		a.addEventListener('click', clickHandler, false);
 		a.click();
 
@@ -224,4 +175,4 @@ class WcBase extends HTMLElement {
 	};
 }
 
-global.WcBase = WcBase;
+export default Base;

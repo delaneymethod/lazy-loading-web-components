@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "72cae94ed43e17ee1d155405bfeff4cb",
+    "content-hash": "1cd3546a0f06430a0e6e7ca67dc870d4",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -2119,6 +2119,136 @@
             "time": "2022-08-09T13:29:29+00:00"
         },
         {
+            "name": "jawira/case-converter",
+            "version": "v3.5.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jawira/case-converter.git",
+                "reference": "2be05b98dcb743bef60ab6f849145bd3434ed003"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jawira/case-converter/zipball/2be05b98dcb743bef60ab6f849145bd3434ed003",
+                "reference": "2be05b98dcb743bef60ab6f849145bd3434ed003",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": ">=7.4"
+            },
+            "require-dev": {
+                "behat/behat": "^3.0",
+                "phpstan/phpstan": "^1.0",
+                "phpunit/phpunit": "^9.0",
+                "vimeo/psalm": "^4.0"
+            },
+            "suggest": {
+                "pds/skeleton": "PHP Package Development Standards",
+                "phing/phing": "PHP Build Tool"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Jawira\\CaseConverter\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jawira Portugal",
+                    "email": "dev@tugal.be"
+                }
+            ],
+            "description": "Convert strings between 13 naming conventions: Snake case, Camel case, Pascal case, Kebab case, Ada case, Train case, Cobol case, Macro case, Upper case, Lower case, Sentence case, Title case and Dot notation.",
+            "homepage": "https://jawira.github.io/case-converter/",
+            "keywords": [
+                "Ada case",
+                "Cobol case",
+                "Macro case",
+                "Train case",
+                "camel case",
+                "dot notation",
+                "kebab case",
+                "lower case",
+                "pascal case",
+                "sentence case",
+                "snake case",
+                "title case",
+                "upper case"
+            ],
+            "support": {
+                "issues": "https://github.com/jawira/case-converter/issues",
+                "source": "https://github.com/jawira/case-converter/tree/v3.5.1"
+            },
+            "time": "2022-08-14T11:40:18+00:00"
+        },
+        {
+            "name": "jawira/case-converter-twig",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jawira/case-converter-twig.git",
+                "reference": "94672ef4f9881a2daaff054c2f9a5ddf70aa5d3f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jawira/case-converter-twig/zipball/94672ef4f9881a2daaff054c2f9a5ddf70aa5d3f",
+                "reference": "94672ef4f9881a2daaff054c2f9a5ddf70aa5d3f",
+                "shasum": ""
+            },
+            "require": {
+                "jawira/case-converter": "^3.4",
+                "php": ">=7.1.3",
+                "twig/twig": "^2.4 || ^3.0"
+            },
+            "require-dev": {
+                "ergebnis/composer-normalize": "^2.14",
+                "jawira/skeleton": "^2.16",
+                "phpstan/phpstan": "^0.12.95",
+                "phpunit/phpunit": "^9.5",
+                "symfony/phpunit-bridge": "^4.4.9 || ^5.0.9 || ^6.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "symfony": {
+                    "endpoint": [
+                        "https://api.github.com/repos/jawira/recipes/contents/index.json",
+                        "flex://defaults"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Jawira\\CaseConverterTwig\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "jawira",
+                    "email": "dev@tugal.be"
+                }
+            ],
+            "description": "🔤 Twig extension for Case Converter",
+            "keywords": [
+                "case-converter",
+                "twig",
+                "twig-extension"
+            ],
+            "support": {
+                "issues": "https://github.com/jawira/case-converter-twig/issues",
+                "source": "https://github.com/jawira/case-converter-twig/tree/v1.0.1"
+            },
+            "time": "2022-10-10T19:58:42+00:00"
+        },
+        {
             "name": "justinrainbow/json-schema",
             "version": "5.x-dev",
             "source": {
@@ -2493,67 +2623,6 @@
                 }
             ],
             "time": "2022-10-14T15:01:04+00:00"
-        },
-        {
-            "name": "nystudio107/craft-twigpack",
-            "version": "4.0.0-beta.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nystudio107/craft-twigpack.git",
-                "reference": "ef13b43aaa7d40ae2d656681dc02ec5cd61365d9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/nystudio107/craft-twigpack/zipball/ef13b43aaa7d40ae2d656681dc02ec5cd61365d9",
-                "reference": "ef13b43aaa7d40ae2d656681dc02ec5cd61365d9",
-                "shasum": ""
-            },
-            "require": {
-                "craftcms/cms": "^4.0.0-beta.1"
-            },
-            "type": "craft-plugin",
-            "extra": {
-                "class": "nystudio107\\twigpack\\Twigpack",
-                "handle": "twigpack",
-                "name": "Twigpack"
-            },
-            "autoload": {
-                "psr-4": {
-                    "nystudio107\\twigpack\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "nystudio107",
-                    "homepage": "https://nystudio107.com/"
-                }
-            ],
-            "description": "Twigpack is a bridge between Twig and webpack, with manifest.json & webpack-dev-server HMR support",
-            "keywords": [
-                "craft-plugin",
-                "craftcms",
-                "hmr-support",
-                "manifest-json",
-                "twig",
-                "webpack",
-                "webpack-dev-server"
-            ],
-            "support": {
-                "docs": "https://nystudio107.com/docs/twigpack/",
-                "issues": "https://nystudio107.com/plugins/twigpack/support",
-                "source": "https://github.com/nystudio107/craft-twigpack"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/khalwat",
-                    "type": "github"
-                }
-            ],
-            "time": "2022-04-26T15:19:38+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -5383,6 +5452,84 @@
             "time": "2022-10-10T09:34:08+00:00"
         },
         {
+            "name": "symfony/translation-contracts",
+            "version": "3.0.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/translation-contracts.git",
+                "reference": "d001aece9c34495214f25492a4f33ab2e55e6924"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/translation-contracts/zipball/d001aece9c34495214f25492a4f33ab2e55e6924",
+                "reference": "d001aece9c34495214f25492a4f33ab2e55e6924",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.0.2"
+            },
+            "suggest": {
+                "symfony/translation-implementation": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "3.0-dev"
+                },
+                "thanks": {
+                    "name": "symfony/contracts",
+                    "url": "https://github.com/symfony/contracts"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Contracts\\Translation\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Generic abstractions related to translation",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "abstractions",
+                "contracts",
+                "decoupling",
+                "interfaces",
+                "interoperability",
+                "standards"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/translation-contracts/tree/3.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2022-10-28T16:22:58+00:00"
+        },
+        {
             "name": "symfony/var-dumper",
             "version": "5.4.x-dev",
             "source": {
@@ -5593,6 +5740,78 @@
                 "source": "https://github.com/theiconic/name-parser/tree/v1.2.11"
             },
             "time": "2019-11-14T14:08:48+00:00"
+        },
+        {
+            "name": "twig/string-extra",
+            "version": "3.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twigphp/string-extra.git",
+                "reference": "ff25dd70b2aa2ca75344d1eeedb8e1c5aac514d6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twigphp/string-extra/zipball/ff25dd70b2aa2ca75344d1eeedb8e1c5aac514d6",
+                "reference": "ff25dd70b2aa2ca75344d1eeedb8e1c5aac514d6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.5",
+                "symfony/string": "^5.0|^6.0",
+                "symfony/translation-contracts": "^1.1|^2|^3",
+                "twig/twig": "^2.7|^3.0"
+            },
+            "require-dev": {
+                "symfony/phpunit-bridge": "^4.4.9|^5.0.9|^6.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.5-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Twig\\Extra\\String\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
+                }
+            ],
+            "description": "A Twig extension for Symfony String",
+            "homepage": "https://twig.symfony.com",
+            "keywords": [
+                "html",
+                "string",
+                "twig",
+                "unicode"
+            ],
+            "support": {
+                "source": "https://github.com/twigphp/string-extra/tree/3.x"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/twig/twig",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2023-01-01T08:43:26+00:00"
         },
         {
             "name": "twig/twig",
@@ -7198,7 +7417,10 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "jawira/case-converter-twig": 20,
+        "twig/string-extra": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
@@ -7206,5 +7428,5 @@
     "platform-overrides": {
         "php": "8.0.2"
     },
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.1.0"
 }

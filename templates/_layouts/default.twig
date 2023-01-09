@@ -1,45 +1,46 @@
+{% set buildVersion %}{% include 'buildVersion.twig' %}{% endset %}
+
+{% set uri = 'index' %}
+{% set segment = craft.app.request.pathInfo %}
+{% if segment|length %}
+	{% set uri = segment|replace('/', '-') %}
+{% endif %}
+
+{% set environment = craft.app.config.env %}
+
+{% set load = craft.app.config.custom.loadComponents %}
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" class="no-js" lang="en-IE">
 	<head>
+		<link rel="prefetch" href="/assets/css/app.css?v={{ buildVersion }}" as="style">
+		<link rel="prefetch" href="/assets/js/vendor.js?v={{ buildVersion }}" as="script" crossorigin="anonymous">
+		<link rel="prefetch" href="/assets/js/manifest.js?v={{ buildVersion }}" as="script" crossorigin="anonymous">
+		<link rel="prefetch" href="/assets/js/app.js?v={{ buildVersion }}" as="script" crossorigin="anonymous">
+		<link rel="preload" href="/assets/js/event-listeners.js?v={{ buildVersion }}" as="script" crossorigin="anonymous">
+		<link href="https://cdnjs.cloudflare.com" rel="dns-prefetch">
+		<link href="https://cdnjs.cloudflare.com" rel="preconnect" crossorigin>
+		<link href="https://cdnjs.cloudflare.com" rel="dns-prefetch">
+		<link href="https://cdnjs.cloudflare.com" rel="preconnect" crossorigin>
+		<style>{{ craft.delaneyMethodUtilities.inlineFile('/assets/css/' ~ uri ~ '.critical.css') }}</style>
+		<link href="/assets/css/app.css?v={{ buildVersion }}" rel="stylesheet">
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-		<title>Lazy loading Web Components example</title>
-		<meta name="description" content="Lazy loading Web Components example">
+		<title>Lazy loading Custom Web Components example</title>
+		<meta name="description" content="Lazy loading Custom Web Components example">
 		<meta name="author" content="DelaneyMethod">
 		<link rel="shortcut icon" href="/favicon.ico">
-		<link rel="manifest" href="/manifest.webmanifest" crossorigin="use-credentials">
 		<meta name="robots" content="max-image-preview:large">
-
-		{% set uri = 'index' %}
-		{% set segment = craft.app.request.pathInfo %}
-		{% if segment|length %}
-			{% set uri = segment|replace('/', '-') %}
-		{% endif %}
-		{% set assetFilename = 'assets/css/' ~ uri ~ '.critical.css' %}
-		{% set assetsExists = craft.delaneyMethodUtilities.assetExists(assetFilename) %}
-
-		{% if assetsExists %}
-			{{ craft.twigpack.includeInlineCssTags(assetFilename, { 'media': 'all' }) }}
-		{% endif %}
-
-		{{ craft.twigpack.includeCssModule('/assets/css/wc-app.css', assetsExists) }}
 	</head>
 	<body>
 
 		{% block content %}
 		{% endblock %}
 
-		{% set environment = getenv('ENVIRONMENT') %}
+		<my-app data-environment="{{ environment }}" data-build-version="{{ buildVersion }}" data-load="{{ load }}"></my-app>
 
-		{% set vendorJs = craft.twigpack.getModuleUri('/assets/js/vendor.js') %}
-		{% set manifestJs = craft.twigpack.getModuleUri('/assets/js/manifest.js') %}
-		{% set wcAppJs = craft.twigpack.getModuleUri('/assets/js/wc-app.js') %}
-
-		<wc-app data-environment="{{ environment }}" data-build-version="{% include 'buildVersion.twig' %}"></wc-app>
-
-		<script src="{{ manifestJs }}" type="text/javascript" defer="defer" crossorigin="anonymous"></script>
-		<script src="{{ vendorJs }}" type="text/javascript" defer="defer" crossorigin="anonymous"></script>
-		<script src="{{ wcAppJs }}" type="module" defer="defer" crossorigin="anonymous"></script>
-
+		<script src="/assets/js/vendor.js?v={{ buildVersion }}" type="text/javascript" defer crossorigin="anonymous"></script>
+		<script src="/assets/js/manifest.js?v={{ buildVersion }}" type="text/javascript" defer crossorigin="anonymous"></script>
+		<script src="/assets/js/app.js?v={{ buildVersion }}" type="text/javascript" defer crossorigin="anonymous"></script>
 	</body>
 </html>

@@ -1,16 +1,7 @@
 {
-    "/assets/js/wc-app.js": "/assets/js/wc-app.js?id=4502fe644e0afbcb37d6570d8e7ccebe",
-    "/assets/js/wc-defer.js": "/assets/js/wc-defer.js?id=fda65f36a43556fdcf68dc799bb26a54",
-    "/assets/js/wc-debounce.js": "/assets/js/wc-debounce.js?id=f3777881e0b1c6729fabbd2d7adfc63f",
-    "/assets/js/wc-throttle.js": "/assets/js/wc-throttle.js?id=e131205998c315c67b75023c9a2bdb3d",
-    "/assets/js/wc-path-info.js": "/assets/js/wc-path-info.js?id=e241995131127b63a8b8a18256d27b61",
-    "/assets/js/wc-load-script.js": "/assets/js/wc-load-script.js?id=768c9498823411f28f483c85b9efb776",
-    "/assets/js/wc-load-stylesheet.js": "/assets/js/wc-load-stylesheet.js?id=795f6fe6f23490023d4d46270b46d122",
-    "/assets/js/wc-event-listeners.js": "/assets/js/wc-event-listeners.js?id=1d0df82e0b588d96e74fd2a8acd1e922",
-    "/assets/js/wc-example.js": "/assets/js/wc-example.js?id=4e9f19a3728eb71e891c1dc5820eb8d9",
-    "/assets/js/manifest.js": "/assets/js/manifest.js?id=a482d4931571ed37d8751cd9075cc6b6",
-    "/assets/css/wc-example.css": "/assets/css/wc-example.css?id=f23d078f1ba5c30baa5804670827f381",
-    "/assets/css/wc-app.css": "/assets/css/wc-app.css?id=400145ee14cc4ec12a5abad2bc77fdd2",
-    "/assets/js/vendor.js": "/assets/js/vendor.js?id=4271e391001e1f373f010e9830ff1845",
-    "/assets/icons/three-dots.svg": "/assets/icons/three-dots.svg?id=81ca0b55a3e335b71477b4b4551635b0"
+    "/assets/js/event-listeners.js": "/assets/js/event-listeners.js",
+    "/assets/js/app.js": "/assets/js/app.js",
+    "/assets/js/manifest.js": "/assets/js/manifest.js",
+    "/assets/css/app.css": "/assets/css/app.css",
+    "/assets/js/vendor.js": "/assets/js/vendor.js"
 }
