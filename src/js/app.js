@@ -8,8 +8,6 @@ import loadStylesheet from './load-stylesheet.js';
 global.scriptsLoader = [];
 
 class App extends HTMLElement {
-	_mixManifest = null;
-
 	_facebookId = 'FIXME';
 
 	_googleTagManagerId = 'FIXME';
